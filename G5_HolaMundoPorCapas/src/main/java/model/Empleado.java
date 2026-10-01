@@ -41,7 +41,7 @@ public abstract class Empleado {
         this.telefono = validarTelefono(telefono);
         this.fechaNacimiento = validarFechaNac(fechaNacimiento);
         this.departamento = departamento;
-        this.fechaIngreso = validarFechaIngreso(fechaIngreso, fechaNacimiento);
+        this.fechaIngreso = fechaIngreso;
     }
 
     public static String validarDni(String dni) {
@@ -72,16 +72,7 @@ public abstract class Empleado {
         return fecha;
     }
 
-    public static LocalDate validarFechaIngreso(LocalDate ingreso, LocalDate nacimiento) {
-        if (ingreso == null || ingreso.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("Fecha de ingreso inválida (nula o futura).");
-        }
-        if (nacimiento != null && !ingreso.isAfter(nacimiento)) {
-            throw new IllegalArgumentException("El ingreso debe ser posterior al nacimiento.");
-        }
-        return ingreso;
-    }
-
+    
     public int getAntiguedad() {
         return fechaIngreso == null ? 0 : Period.between(fechaIngreso, LocalDate.now()).getYears();
     }
@@ -180,7 +171,7 @@ public abstract class Empleado {
 
     public void setFechaIngreso(LocalDate fecha) {
 
-        this.fechaIngreso = validarFechaIngreso(fecha, this.fechaNacimiento);
+        this.fechaIngreso = fecha;
     }
 
     @Override
