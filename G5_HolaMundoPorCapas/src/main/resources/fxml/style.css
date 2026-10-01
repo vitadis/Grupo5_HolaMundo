@@ -1,0 +1,67 @@
+/* ========================================================
+   BASE Y TIPOGRAFÍA
+   ======================================================== */
+.root {
+    -fx-font-family: "Times New Roman", system-ui, -apple-system, sans-serif;
+    -fx-background-color: #f8fafc;
+}
+
+/* ========================================================
+   BARRA SUPERIOR (HEADER)
+   ======================================================== */
+.header-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.header-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+/* ========================================================
+   BOTÓN CERRAR SESIÓN
+   ======================================================== */
+.btn-danger {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #dc2626;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-border-color: #fca5a5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-padding: 7px 16px;
+    -fx-cursor: hand;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #fecaca;
+    -fx-border-color: #f87171;
+}
+
+.btn-danger:pressed {
+    -fx-background-color: #f87171;
+    -fx-text-fill: #ffffff;
+}
+
+/* ========================================================
+   ÁREA DE CONTENIDO (LISTA DE EMPLEADOS)
+   ======================================================== */
+.scroll-pane-clean {
+    -fx-background-color: transparent;
+    -fx-background: #f8fafc;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane-clean > .viewport {
+    -fx-background-color: transparent;
+}
+
+.employee-list {
+    -fx-padding: 24px;
+    -fx-spacing: 12px;
+    -fx-background-color: transparent;
+}

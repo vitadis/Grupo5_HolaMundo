@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GerenteViewController">
+   <top>
+      <GridPane fx:id="headerBar" styleClass="header-bar" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0" />
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="150.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="45.0" prefHeight="55.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="lblNombreGerente" styleClass="header-label" text="Gerente: " />
+            <Label fx:id="lblNombreDepartamento" styleClass="header-label" text="Dpto: " GridPane.columnIndex="1" />
+            <Button fx:id="btnCerrarSesion" mnemonicParsing="false" styleClass="btn-danger" text="Cerrar Sesión" GridPane.columnIndex="2" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="24.0" right="24.0" top="10.0" />
+         </padding>
+      </GridPane>
+   </top>
+   <center>
+      <ScrollPane fitToWidth="true" styleClass="scroll-pane-clean" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="VBoxEmpleados" styleClass="employee-list" />
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
