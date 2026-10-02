@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GerenteViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" stylesheets="@../styles/GerenteView.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GerenteViewController">
    <top>
       <GridPane fx:id="headerBar" styleClass="header-bar" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -24,7 +24,7 @@
          <children>
             <Label fx:id="lblNombreGerente" styleClass="header-label" text="Gerente: " />
             <Label fx:id="lblNombreDepartamento" styleClass="header-label" text="Dpto: " GridPane.columnIndex="1" />
-            <Button fx:id="btnCerrarSesion" mnemonicParsing="false" styleClass="btn-danger" text="Cerrar Sesión" GridPane.columnIndex="2" />
+            <Button fx:id="btnCerrarSesion" onAction="#cerrarSesion" mnemonicParsing="false" styleClass="btn-danger" text="Cerrar Sesión" GridPane.columnIndex="2" />
          </children>
          <padding>
             <Insets bottom="10.0" left="24.0" right="24.0" top="10.0" />
