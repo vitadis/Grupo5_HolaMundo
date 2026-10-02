@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.Empleado;
 
 /**
  * FXML Controller class
@@ -120,18 +121,20 @@ public class trabajador implements Initializable {
         String correo = textMail.getText().trim();
         if (correo.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "El correo electronico no puede estar vacio.").showAndWait();
+            return;
         }
         
         String telefono = textTlf.getText();
         if (telefono.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "El telefono no puede estar vacio").showAndWait();
+            return;
         }
         
         try {
                      
             empleado.setDireccion(direccion);
-            empleado.setMail(correo);
-            empleado.setTelefono(Integer.valueOf(telefono));
+            empleado.setMail(Empleado.validarCorreo(correo));
+            empleado.setTelefono(Empleado.validarTelefono(Integer.valueOf(telefono)));
             
             mail.setText(correo);
             dir.setText(direccion);
