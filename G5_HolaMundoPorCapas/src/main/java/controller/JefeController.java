@@ -4,9 +4,9 @@
  */
 package controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import dao.EmpleadoDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import model.Departamento;
 import model.*;
 
 /**
@@ -117,10 +116,6 @@ public class JefeController {
     private ObservableList<VisualizacionEmpleados> cargarObservableList() {
         List<Empleado> listEmp = listaEmpleados();
 
-        if (listEmp == null || listEmp.isEmpty()) {
-            return null;
-        }
-
         List<VisualizacionEmpleados> listVisEmp = listEmp.stream()
                 .map(empleado -> new VisualizacionEmpleados(empleado))
                 .collect(Collectors.toList());
@@ -132,75 +127,6 @@ public class JefeController {
     }
 
     private List<Empleado> listaEmpleados() {
-        List<Empleado> empleados = new ArrayList<>();
-        empleados.add(new Trabajador(
-                "juan", "1234", "12345678A", "Juan", "García", "López",
-                "Calle Mayor 1", "juan@gmail.com", 612345678,
-                LocalDate.of(1995, 3, 15), Departamento.contabilidad,
-                LocalDate.of(2020, 5, 10)
-        ));
-        empleados.add(new Trabajador(
-                "ana", "1234", "23456789B", "Ana", "Martínez", "Pérez",
-                "Calle Bilbao 12", "ana@gmail.com", 623456789,
-                LocalDate.of(1998, 7, 22), Departamento.contabilidad,
-                LocalDate.of(2022, 2, 1)
-        ));
-
-        empleados.add(new Trabajador(
-                "carlos", "1234", "34567890C", "Carlos", "López", "Gómez",
-                "Avenida Euskadi 5", "carlos@gmail.com", 634567890,
-                LocalDate.of(1992, 11, 8), Departamento.contabilidad,
-                LocalDate.of(2018, 9, 15)
-        ));
-
-        empleados.add(new Jefe(
-                "maria", "1234", "45678901D", "María", "Fernández", "Ruiz",
-                "Calle Navarra 20", "maria@gmail.com", 645678901,
-                LocalDate.of(1988, 1, 30), Departamento.ventas,
-                LocalDate.of(2016, 4, 20)
-        ));
-
-        empleados.add(new Jefe(
-                "david", "1234", "56789012E", "David", "Sánchez", "Moreno",
-                "Calle Autonomía 8", "david@gmail.com", 656789012,
-                LocalDate.of(1985, 6, 12), Departamento.ventas,
-                LocalDate.of(2015, 1, 10)
-        ));
-
-        empleados.add(new Gerente(
-                "laura", "1234", "67890123F", "Laura", "González", "Díaz",
-                "Calle Gran Vía 30", "laura@gmail.com", 667890123,
-                LocalDate.of(1980, 9, 25), Departamento.ventas,
-                LocalDate.of(2010, 3, 1)
-        ));
-
-        empleados.add(new Trabajador(
-                "miguel", "1234", "78901234G", "Miguel", "Rodríguez", "Navarro",
-                "Calle Iparraguirre 14", "miguel@gmail.com", 678901234,
-                LocalDate.of(2000, 2, 18), Departamento.ventas,
-                LocalDate.of(2024, 6, 10)
-        ));
-
-        empleados.add(new Trabajador(
-                "lucia", "1234", "89012345H", "Lucía", "Jiménez", "Ortega",
-                "Calle Ercilla 7", "lucia@gmail.com", 689012345,
-                LocalDate.of(1997, 12, 5), Departamento.ventas,
-                LocalDate.of(2021, 10, 4)
-        ));
-
-        empleados.add(new Jefe(
-                "pablo", "1234", "90123456I", "Pablo", "Morales", "Castro",
-                "Calle Hurtado 18", "pablo@gmail.com", 698123456,
-                LocalDate.of(1987, 4, 17), Departamento.ventas,
-                LocalDate.of(2017, 7, 3)
-        ));
-
-        empleados.add(new Gerente(
-                "sofia", "1234", "01234567J", "Sofía", "Vázquez", "Iglesias",
-                "Calle Alameda 25", "sofia@gmail.com", 612987654,
-                LocalDate.of(1978, 10, 11), Departamento.ventas,
-                LocalDate.of(2008, 11, 17)
-        ));
-        return empleados;
+        return new ArrayList<>(EmpleadoDAO.obtenerTodos().values());
     }
 }

@@ -1,38 +1,15 @@
 package com.mycompany.g5_holamundoporcapas;
 
-import java.io.IOException;
+import controller.InstanciarEscena;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 /**
  * JavaFX App
  */
-public class App extends Application {
-
-    private static Scene scene;
-
-    @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("GerenteView"), 750, 500);
-        stage.setTitle("Gestion de Empleados - Gerente");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
+public class App{
 
     public static void main(String[] args) {
-        launch();
+        Application.launch(InstanciarEscena.class, args);
     }
 
 }

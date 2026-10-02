@@ -10,6 +10,7 @@ package dao;
  */
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import model.Departamento;
@@ -19,12 +20,11 @@ import model.Jefe;
 import model.Trabajador;
 
 /**
- * DAO sin métodos: solo contiene un Map (clave = DNI) que se rellena
- * una vez, al cargar la clase, con 1 Jefe, 2 Gerentes y 10 Trabajadores.
+ * Repositorio en memoria de empleados de prueba, compartido por las vistas.
  */
 public class EmpleadoDAO {
 
-    public static final Map<String, Empleado> EMPLEADOS = new HashMap<>();
+    private static final Map<String, Empleado> EMPLEADOS = new HashMap<>();
 
     static {
         Empleado[] datos = {
@@ -79,5 +79,40 @@ public class EmpleadoDAO {
         for (Empleado e : datos) {
             EMPLEADOS.put(e.getDni(), e);
         }
+    }
+
+    public static Map<String, Empleado> obtenerTodos() {
+        return Collections.unmodifiableMap(EMPLEADOS);
+    }
+
+    public static boolean autenticar(String dni, String pass) {
+        if (dni == null || pass == null) {
+            return false;
+        }
+
+        for (Empleado empleado : EMPLEADOS.values()) {
+            boolean dniCorrecto = empleado.getDni().equalsIgnoreCase(dni.trim());
+            boolean contrasenaCorrecta = empleado.getPass().equals(pass);
+
+            if (dniCorrecto && contrasenaCorrecta) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static Empleado buscarPorDni(String dni) {
+        if (dni == null) {
+            return null;
+        }
+
+        for (Empleado empleado : EMPLEADOS.values()) {
+            if (empleado.getDni().equalsIgnoreCase(dni.trim())) {
+                return empleado;
+            }
+        }
+
+        return null;
     }
 }

@@ -1,7 +1,6 @@
 package controller;
 
-import dao.EmpleadoDao;
-import dao.EmpleadoDaoImpl;
+import dao.EmpleadoDAO;
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -29,8 +28,6 @@ public class GerenteViewController implements Initializable {
     @FXML
     private VBox VBoxEmpleados;
 
-    private final EmpleadoDao empleadoDAO = EmpleadoDaoImpl.getInstance();
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarListaEmpleados();
@@ -39,7 +36,7 @@ public class GerenteViewController implements Initializable {
     private void cargarListaEmpleados() {
         VBoxEmpleados.getChildren().clear();
         
-        Map<String, Empleado> mapEmpleados = empleadoDAO.obtenerTodos();
+        Map<String, Empleado> mapEmpleados = EmpleadoDAO.obtenerTodos();
 
         for (Empleado emp : mapEmpleados.values()) {
             HBox filaEmpleado = crearFilaEmpleado(emp);

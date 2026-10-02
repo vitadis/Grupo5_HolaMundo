@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package com.mycompany.g5_holamundoporcapas;
+package controller;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -21,14 +21,14 @@ import model.Empleado;
  *
  * @author Hodei.Torres
  */
-public class trabajador implements Initializable {
+public class TrabajadorController implements Initializable {
 
     //FORMATO PARA PODER USAR LAS FECHAS
     private static final DateTimeFormatter FORMATO = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     //DATOS DE LA CABECERA
     @FXML
-    private Label user;
+    private Label lblDniUsuario;
     @FXML
     private Label depart;
     
@@ -83,7 +83,7 @@ public class trabajador implements Initializable {
     public void setTrabajador(model.Trabajador t){
         this.empleado = t;
         
-        user.setText("Usuario: " + t.getUsuario());
+        lblDniUsuario.setText("DNI: " + t.getDni());
         depart.setText("Departamento: " + t.getDepartamento());
         
         nom.setText(t.getNombre());
