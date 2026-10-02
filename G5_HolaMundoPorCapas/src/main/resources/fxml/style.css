@@ -1,61 +1,115 @@
-/* ========================================================
-   BASE Y TIPOGRAFÍA
-   ======================================================== */
+/* ==========================================================================
+   Gestión Corporativa - Variables Globales
+   ========================================================================== */
 .root {
-    -fx-font-family: "Times New Roman", system-ui, -apple-system, sans-serif;
-    -fx-background-color: #f8fafc;
+    /* Paleta Corporativa */
+    -fx-surface-canvas: #F8FAFC;
+    -fx-surface-card: #FFFFFF;
+    -fx-border-default: #E2E8F0;
+    -fx-border-hover: #CBD5E1;
+    
+    /* Colores de Texto */
+    -fx-text-muted: #64748B;
+    -fx-text-body: #334155;
+    -fx-text-heading: #0F172A;
+    -fx-brand-secondary: #2563EB; /* Azul Royal / Botones y Links */
+    
+    /* Colores Destructivos */
+    -fx-color-error-bg: #FEF2F2;
+    -fx-color-error-text: #DC2626;
+    -fx-color-error-border: #FEE2E2;
+
+    /* Tipografía Corporativa */
+    -fx-font-family: "Inter", "Segoe UI", sans-serif;
+    -fx-background-color: -fx-surface-canvas;
 }
 
-/* ========================================================
+/* ==========================================================================
    BARRA SUPERIOR (HEADER)
-   ======================================================== */
+   ========================================================================== */
 .header-bar {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #e2e8f0;
-    -fx-border-width: 0 0 1px 0;
+    -fx-background-color: -fx-surface-card;
+    -fx-border-color: transparent transparent -fx-border-default transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 16px 24px;
 }
 
 .header-label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #1e293b;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -fx-text-heading;
 }
 
-/* ========================================================
-   BOTÓN CERRAR SESIÓN
-   ======================================================== */
-.btn-danger {
-    -fx-background-color: #fee2e2;
-    -fx-text-fill: #dc2626;
-    -fx-font-size: 13px;
+/* ==========================================================================
+   CLASES DE TEXTO 
+   ========================================================================== */
+.text-muted {
+    -fx-text-fill: -fx-text-muted;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+}
+
+.text-heading {
+    -fx-text-fill: -fx-text-heading;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-radius: 6px;
-    -fx-border-color: #fca5a5;
-    -fx-border-width: 1px;
-    -fx-border-radius: 6px;
-    -fx-padding: 7px 16px;
+}
+
+.text-brand-secondary {
+    -fx-text-fill: -fx-brand-secondary;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+/* ==========================================================================
+   BOTONES CORPORATIVOS
+   ========================================================================== */
+.button {
+    -fx-font-family: "Inter";
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 8px 16px;
     -fx-cursor: hand;
 }
 
+/* Botón Ver Perfil (Secundario) */
+.button-secondary {
+    -fx-background-color: -fx-surface-card;
+    -fx-text-fill: -fx-text-body;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 1px;
+}
+.button-secondary:hover {
+    -fx-background-color: -fx-surface-canvas;
+    -fx-border-color: -fx-border-hover;
+}
+
+/* Botón Cerrar Sesión */
+.btn-danger {
+    -fx-background-color: -fx-color-error-bg;
+    -fx-text-fill: -fx-color-error-text;
+    -fx-border-color: -fx-color-error-border;
+    -fx-border-width: 1px;
+}
 .btn-danger:hover {
-    -fx-background-color: #fecaca;
-    -fx-border-color: #f87171;
+    -fx-background-color: #FCA5A5;
+    -fx-border-color: #F87171;
 }
-
 .btn-danger:pressed {
-    -fx-background-color: #f87171;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #EF4444;
+    -fx-text-fill: #FFFFFF;
 }
 
-/* ========================================================
-   ÁREA DE CONTENIDO (LISTA DE EMPLEADOS)
-   ======================================================== */
+/* ==========================================================================
+   ÁREA DE CONTENIDO Y FICHAS DE EMPLEADO
+   ========================================================================== */
 .scroll-pane-clean {
     -fx-background-color: transparent;
-    -fx-background: #f8fafc;
+    -fx-background: -fx-surface-canvas;
     -fx-border-color: transparent;
 }
-
 .scroll-pane-clean > .viewport {
     -fx-background-color: transparent;
 }
@@ -64,4 +118,19 @@
     -fx-padding: 24px;
     -fx-spacing: 12px;
     -fx-background-color: transparent;
+}
+
+/* Ficha individual de Empleado (Generada dinámicamente) */
+.employee-card {
+    -fx-background-color: -fx-surface-card;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(15, 23, 42, 0.05), 3, 0, 0, 1);
+}
+.employee-card:hover {
+    -fx-background-color: -fx-surface-canvas;
+    -fx-border-color: -fx-border-hover;
 }
