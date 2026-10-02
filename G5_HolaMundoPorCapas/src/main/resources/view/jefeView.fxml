@@ -28,7 +28,7 @@
          <children>
               <HBox prefHeight="59.0" prefWidth="580.0">
                   <children>
-                      <TextField fx:id="tfDni" onKeyTyped="#filtradoDni" promptText="Agrega el dni" />
+                      <TextField fx:id="tfFiltros" onKeyTyped="#filtrado" promptText="busca" />
                   <GridPane prefHeight="30.0" prefWidth="330.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" />
