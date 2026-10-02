@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Empleado;
 import model.Gerente;
-import model.Jefe;
 import model.Trabajador;
 
 public class IniciarSesionController {
@@ -59,18 +58,21 @@ public class IniciarSesionController {
             switch (empleado.getClass().getSimpleName()) {
                 case "Trabajador":
                     TrabajadorController controladorTrabajador
-                        = InstanciarEscena.cambiarVista(stage, "/view/TrabajadorView.fxml", "Perfil del trabajador");
+                            = InstanciarEscena.cambiarVista(stage, "/view/TrabajadorView.fxml", "Perfil del trabajador");
                     controladorTrabajador.setTrabajador((Trabajador) empleado);
                     controladorTrabajador.setOnCerrarSesion(() -> abrirLoginEnVentanaNueva(stage));
                     break;
                 case "Gerente":
-                    InstanciarEscena.cambiarVista(stage, "/view/GerenteView.fxml", "Vista del gerente");
+                    GerenteViewController controladorGerente
+                            = InstanciarEscena.cambiarVista(stage, "/view/GerenteView.fxml", "Vista del gerente");
+                    controladorGerente.setGerente((Gerente) empleado);
+                    controladorGerente.setOnCerrarSesion(() -> abrirLoginEnVentanaNueva(stage));
                     break;
                 case "Jefe":
                     InstanciarEscena.cambiarVista(stage, "/view/jefeView.fxml", "Vista del jefe");
                     break;
                 default:
-                    InstanciarEscena.mostrarError("No hay una vista asignada para el cargo: "+ empleado.getClass().getSimpleName());
+                    InstanciarEscena.mostrarError("No hay una vista asignada para el cargo: " + empleado.getClass().getSimpleName());
                     break;
             }
         } catch (IOException ex) {
