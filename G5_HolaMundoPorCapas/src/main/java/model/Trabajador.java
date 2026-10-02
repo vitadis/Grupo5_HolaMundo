@@ -12,8 +12,10 @@ import java.time.LocalDate;
  */
 public class Trabajador extends Empleado {
     
-    public Trabajador(String usuario, String pass, String dni, String nombre, String apellido1, String apellido2, String direccion, String mail, int telefono, LocalDate fechaNacimiento, Departamento departamento, LocalDate fechaIngreso) {
-        super(usuario, pass, dni, nombre, apellido1, apellido2, direccion, mail, telefono, fechaNacimiento, departamento, fechaIngreso);
+    public Trabajador(String usuario, String pass, String dni, String nombre, String apellido1, String apellido2, String direccion, String mail, int telefono, LocalDate fechaNacimiento, Departamento departamento, LocalDate fechaIngreso, double sueldo) {
+        super(usuario, pass, dni, nombre, apellido1, apellido2, direccion, mail, telefono, fechaNacimiento, departamento, fechaIngreso, sueldo);
     }
     
+   
+
 }

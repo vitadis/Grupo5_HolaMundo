@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.g5_holamundoporcapas.trabajador">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label prefHeight="22.0" prefWidth="600.0" text="DATOS DEL TRABAJADOR" textFill="#1e3a8a">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <top>
+            <GridPane prefHeight="19.0" prefWidth="574.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.800048828125" minWidth="10.0" prefWidth="178.20001220703125" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="307.5999877929688" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="195.199951171875" minWidth="10.0" prefWidth="108.4000122070313" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="user" text="Usuario: " textFill="#2563eb">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font></Label>
+                  <Label fx:id="depart" text="Departamento: " textFill="#2563eb" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font></Label>
+                  <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesion" textAlignment="RIGHT" GridPane.columnIndex="2" />
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" />
+               </BorderPane.margin>
+            </GridPane>
+         </top>
+         <center>
+            <GridPane alignment="CENTER" prefHeight="800.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="294.4000244140625" minWidth="10.0" prefWidth="149.60003662109375" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="540.0" minWidth="10.0" prefWidth="451.1999633789063" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30.0" prefHeight="45.0" valignment="CENTER" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Nombre:  ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Apellido 1:  " GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Telefono:  " GridPane.rowIndex="5">
+                      <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Fecha de nacimiento:  " GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Apellido 2:  " GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="DNI:  " GridPane.rowIndex="3">
+                      <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Correo electronico:  " GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Dirección:  " GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Fecha de ingreso:  " GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nom" textFill="#64748b" GridPane.columnIndex="1" />
+                  <Label fx:id="ape1" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="ape2" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="dni" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="mail" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="tlf" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="dir" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label fx:id="fechaNac" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label fx:id="fechaIng" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label text="Sueldo:  " GridPane.rowIndex="9">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sueldo" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Button fx:id="datosEdit" mnemonicParsing="false" onAction="#editarDatos" text="Editar datos" GridPane.rowIndex="10" />
+               </children>
+            </GridPane>
+         </center>
+         <bottom>
+            <GridPane fx:id="editablesDatos" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="293.60003662109375" minWidth="10.0" prefWidth="140.800048828125" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="461.5999755859375" minWidth="10.0" prefWidth="459.199951171875" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="btnGuardar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#guardar" text="Guardar" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <Label text="Telefono:  " />
+                  <Label text="Correo electronico:  " GridPane.rowIndex="1" />
+                  <Label text="Dirección:  " GridPane.rowIndex="2" />
+                  <TextField fx:id="textTlf" GridPane.columnIndex="1" />
+                  <TextField fx:id="textMail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="textDir" prefHeight="26.0" prefWidth="433.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </bottom>
+      </BorderPane>
+   </children>
+</VBox>

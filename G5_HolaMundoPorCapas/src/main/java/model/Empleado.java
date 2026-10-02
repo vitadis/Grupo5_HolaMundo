@@ -26,10 +26,11 @@ public abstract class Empleado {
     private LocalDate fechaNacimiento;
     private Departamento departamento;
     private LocalDate fechaIngreso;
+    private double sueldo;
 
     public Empleado(String usuario, String pass, String dni, String nombre, String apellido1,
             String apellido2, String direccion, String mail, int telefono,
-            LocalDate fechaNacimiento, Departamento departamento, LocalDate fechaIngreso) {
+            LocalDate fechaNacimiento, Departamento departamento, LocalDate fechaIngreso, double sueldo) {
         this.usuario = usuario;
         this.pass = pass;
         this.dni = validarDni(dni);
@@ -42,6 +43,7 @@ public abstract class Empleado {
         this.fechaNacimiento = validarFechaNac(fechaNacimiento);
         this.departamento = departamento;
         this.fechaIngreso = fechaIngreso;
+        this.sueldo = sueldo;
     }
 
     public static String validarDni(String dni) {
@@ -72,7 +74,14 @@ public abstract class Empleado {
         return fecha;
     }
 
-    
+    public double getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(double sueldo) {
+        this.sueldo = sueldo;
+    }
+
     public int getAntiguedad() {
         return fechaIngreso == null ? 0 : Period.between(fechaIngreso, LocalDate.now()).getYears();
     }
