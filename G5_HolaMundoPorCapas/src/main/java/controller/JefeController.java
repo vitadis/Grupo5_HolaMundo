@@ -5,16 +5,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dao.EmpleadoDAO;
+import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.*;
 
 /**
@@ -52,6 +58,12 @@ public class JefeController {
      */
     private String tipoFiltro = "Todos";
 
+    /**
+     * Objeto para guardar al jefe, para visualizarlo posteriormente su
+     * información con un dialog.
+     */
+    private VisualizacionEmpleados jefe;
+
     // ======================== COMPONENTS FXML ================================
     /**
      * Tabla donde se muestran los empleados.
@@ -81,13 +93,29 @@ public class JefeController {
     }
 
     /**
-     * Abrirá una ventana con el perfil del empleado para poder modificarlo.
-     * Todavía está pendiente de hacer.
+     * Abre un diálogo modal con los datos del perfil del jefe.
+     *
+     * @see DialogPerfilController#setTrabajador(VisualizacionEmpleados)
+     * @see InstanciarEscena#mostrarError(String)
      */
     @FXML
     public void verPerfil() {
-        System.out.println("Abrir dialog, del perfil, para poder modificarlo");
-        // dni, nombre, apellido1, apellido2, dirección, mail, teléfono, fecha nacimiento, departamento, fecha ingreso, tipo de trabajador
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/DialogPerfilComponent.fxml"));
+            Parent root = loader.load();
+
+            DialogPerfilController controller = loader.getController();
+            controller.setTrabajador(jefe);
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Perfil del Jefe");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setResizable(false);
+            dialog.setScene(new Scene(root));
+            dialog.showAndWait();
+        } catch (IOException ex) {
+            InstanciarEscena.mostrarError("No se pudo abrir el perfil: " + ex.getMessage());
+        }
     }
 
     /**
@@ -115,6 +143,25 @@ public class JefeController {
         Button boton = (Button) event.getSource();
         tipoFiltro = boton.getText();
         aplicarFiltros();
+    }
+
+    /**
+     * Cierra la sesión actual y regresa a la pantalla de inicio de sesión.
+     *
+     * @param event evento de acción generado al presionar el botón de cerrar
+     * sesión.
+     * @see InstanciarEscena#cambiarVista(Stage, String, String)
+     * @see InstanciarEscena#mostrarError(String)
+     */
+    @FXML
+    public void cerrarSesion(ActionEvent event) {
+        try {
+            Button btnCS = (Button) event.getSource();
+            Stage stage = (Stage) btnCS.getScene().getWindow();
+            InstanciarEscena.cambiarVista(stage, "/view/PantallaInicioView.fxml", "Inicio Sesión");
+        } catch (IOException ex) {
+            InstanciarEscena.mostrarError("No se cerrar sesión: " + ex.getMessage());
+        }
     }
 
     // =========================================================================
@@ -239,6 +286,11 @@ public class JefeController {
         List<VisualizacionEmpleados> listVisEmp = listEmp.stream()
                 .map(empleado -> new VisualizacionEmpleados(empleado))
                 .collect(Collectors.toList());
+        jefe = listVisEmp.stream()
+                .filter(e -> e.getTipoTrabajador().equals("Jefe"))
+                .findFirst()
+                .orElse(null);
+
         listVisEmp.removeIf(e -> e.getTipoTrabajador().equals("Jefe"));
 
         ObservableList<VisualizacionEmpleados> listaEmpleados = FXCollections.observableArrayList();
