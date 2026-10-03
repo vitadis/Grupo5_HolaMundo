@@ -66,7 +66,6 @@ public class IniciarSesionController {
                     GerenteViewController controladorGerente
                             = InstanciarEscena.cambiarVista(stage, "/view/GerenteView.fxml", "Vista del gerente");
                     controladorGerente.setGerente((Gerente) empleado);
-                    controladorGerente.setOnCerrarSesion(() -> abrirLoginEnVentanaNueva(stage));
                     break;
                 case "Jefe":
                     InstanciarEscena.cambiarVista(stage, "/view/jefeView.fxml", "Vista del jefe");

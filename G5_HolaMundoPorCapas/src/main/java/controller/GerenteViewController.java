@@ -40,7 +40,6 @@ public class GerenteViewController implements Initializable {
     private VBox VBoxEmpleados;
 
     private Gerente gerenteLogueado;
-    private Runnable onCerrarSesion;
 
     /**
      * Método llamado automáticamente por JavaFX tras cargar el archivo FXML.
@@ -52,17 +51,6 @@ public class GerenteViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }
-
-    /**
-     * Establece el callback o acción que se ejecutará al pulsar el botón de
-     * cerrar sesión.
-     *
-     * @param accion Un objeto Runnable que contiene la lógica de cierre de
-     * sesión (por ejemplo, cambiar a la vista de Login).
-     */
-    public void setOnCerrarSesion(Runnable accion) {
-        this.onCerrarSesion = accion;
     }
 
     /**
@@ -83,8 +71,9 @@ public class GerenteViewController implements Initializable {
 
     /**
      * Limpia la vista actual y carga la lista de empleados obtenidos desde el
-     * map que esta en el paquete DAO. Filtra los empleados para mostrar únicamente
-     * aquellos que pertenecen al mismo departamento que el gerente logueado.
+     * map que esta en el paquete DAO. Filtra los empleados para mostrar
+     * únicamente aquellos que pertenecen al mismo departamento que el gerente
+     * logueado.
      */
     private void cargarListaEmpleados() {
         VBoxEmpleados.getChildren().clear();
@@ -145,14 +134,17 @@ public class GerenteViewController implements Initializable {
     }
 
     /**
-     * Manejador de eventos vinculado al botón de cerrar sesión en el FXML. Si
-     * se ha configurado un Runnable mediante
-     * {@link #setOnCerrarSesion(Runnable)}, lo ejecuta.
+     * Manejador de eventos vinculado al botón de cerrar sesión en el FXML. 
+     * Si se pulsa el boton vuelves a la ventana de inicio de sesion
      */
     @FXML
     public void cerrarSesion() {
-        if (onCerrarSesion != null) {
-            onCerrarSesion.run();
+        try {
+            Stage ventanaActual = (Stage) btnCerrarSesion.getScene().getWindow();
+            ventanaActual.close();
+            InstanciarEscena.abrirNuevaVentana("/view/PantallaInicioView.fxml", "Iniciar sesión");
+        } catch (IOException ex) {
+            System.out.println("Error al volver al login: " + ex.getMessage());
         }
     }
 }
