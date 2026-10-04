@@ -42,19 +42,19 @@ public class TrabajadorController implements Initializable {
     @FXML
     private Label dni;
     @FXML
+    private Label sueldo;
+    @FXML
+    private Label fechaNac;
+    @FXML
+    private Label fechaIng;
+    
+    //DATOS QUE SE PUEDEN MODIFICAR
+    @FXML
     private Label mail;
     @FXML
     private Label tlf;   
     @FXML
     private Label dir;
-    @FXML
-    private Label sueldo;
-    
-    //DATOS QUE SE PUEDEN MODIFICAR
-    @FXML
-    private Label fechaNac;
-    @FXML
-    private Label fechaIng;
     
     
     //GUARDAD
@@ -97,12 +97,13 @@ public class TrabajadorController implements Initializable {
         fechaIng.setText(t.getFechaIngreso().format(FORMATO));
         sueldo.setText(String.valueOf(t.getSueldo())+ "€");
         
-        //btnGuardar.setVisible(false);   
+        editablesDatos.setManaged(false);
         editablesDatos.setVisible(false);
     }
     
     @FXML
     private void editarDatos(){
+        editablesDatos.setManaged(true);
         editablesDatos.setVisible(true);
         textDir.setText(dir.getText());
         textMail.setText(mail.getText());
@@ -141,6 +142,7 @@ public class TrabajadorController implements Initializable {
             tlf.setText(telefono);
             
             editablesDatos.setVisible(false);
+            editablesDatos.setManaged(false);
             
         } catch(IllegalArgumentException ex){
              new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
