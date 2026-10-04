@@ -21,6 +21,14 @@ public class IniciarSesionController {
     private Label lblError;
 
     @FXML
+    /**
+     * Función al darle al boton de IniciarSesion.
+     *  - Comprueba los campos de DNI y contraseña si estan rellenados, encaso 
+     *    de que no lo esten, muestra el error en el label.
+     *  - Despues, llama a la funcion autenticar(), comprobando que el DNI y la 
+     *    contraseña coincidan.
+     *  - Por ultimo, busca el usuario loggeado y se lo pasa a abrirVistaSegunCargo().
+     */
     private void iniciarSesion() {
         String dni = IntroUsur.getText().trim();
         String contrasena = introContrasena.getText();
@@ -46,11 +54,17 @@ public class IniciarSesionController {
         Empleado empleado = EmpleadoDAO.buscarPorDni(dni);
         abrirVistaSegunCargo(empleado);
     }
-
+    /**
+     * Muestra el error en un Label.
+     */
     private void mostrarError(String mensaje) {
         lblError.setText(mensaje);
     }
-
+    
+    /**
+     * Gestiona el empleado pasado para abrir la siguente ventana acorde a su 
+     * cargo.
+     */
     private void abrirVistaSegunCargo(Empleado empleado) {
         Stage stage = (Stage) IntroUsur.getScene().getWindow();
 
@@ -60,7 +74,6 @@ public class IniciarSesionController {
                     TrabajadorController controladorTrabajador
                             = InstanciarEscena.cambiarVista(stage, "/view/TrabajadorView.fxml", "Perfil del trabajador");
                     controladorTrabajador.setTrabajador((Trabajador) empleado);
-                    controladorTrabajador.setOnCerrarSesion(() -> abrirLoginEnVentanaNueva(stage));
                     break;
                 case "Gerente":
                     GerenteViewController controladorGerente
