@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,23 +12,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrabajadorController">
+<VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" minHeight="440.0" minWidth="640.0" prefHeight="650.0" prefWidth="750.0" spacing="20.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrabajadorController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <Label prefHeight="22.0" prefWidth="600.0" text="DATOS DEL TRABAJADOR" textFill="#1e3a8a">
+      <Label alignment="CENTER" maxWidth="Infinity" prefHeight="22.0" prefWidth="600.0" text="DATOS DEL TRABAJADOR" textFill="#1e3a8a">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <ScrollPane fitToWidth="true" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS">
+             <content>
+         <BorderPane maxWidth="Infinity">
          <top>
-            <GridPane prefHeight="19.0" prefWidth="574.0" BorderPane.alignment="CENTER">
+                  <GridPane BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.800048828125" minWidth="10.0" prefWidth="178.20001220703125" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="307.5999877929688" />
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="195.199951171875" minWidth="10.0" prefWidth="108.4000122070313" />
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="90.0" prefWidth="140.0" />
+                           <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="160.0" prefWidth="250.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="120.0" prefWidth="130.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -40,7 +43,7 @@
                      <font>
                         <Font name="System Italic" size="18.0" />
                      </font></Label>
-                  <Label fx:id="depart" text="Departamento: " textFill="#2563eb" GridPane.columnIndex="1">
+                  <Label fx:id="depart" maxWidth="Infinity" text="Departamento: " textFill="#2563eb" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <font>
                         <Font name="System Italic" size="18.0" />
                      </font></Label>
@@ -52,10 +55,10 @@
             </GridPane>
          </top>
          <center>
-            <GridPane alignment="CENTER" prefHeight="800.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="294.4000244140625" minWidth="10.0" prefWidth="149.60003662109375" />
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="540.0" minWidth="10.0" prefWidth="451.1999633789063" />
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="Infinity" minWidth="150.0" prefWidth="150.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="Infinity" minWidth="280.0" prefWidth="451.1999633789063" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -115,30 +118,30 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nom" textFill="#64748b" GridPane.columnIndex="1" />
-                  <Label fx:id="ape1" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="ape2" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="dni" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label fx:id="mail" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label fx:id="tlf" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label fx:id="dir" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Label fx:id="fechaNac" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <Label fx:id="fechaIng" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label fx:id="nom" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  <Label fx:id="ape1" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                  <Label fx:id="ape2" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                  <Label fx:id="dni" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                  <Label fx:id="mail" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+                  <Label fx:id="tlf" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+                  <Label fx:id="dir" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
+                  <Label fx:id="fechaNac" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
+                  <Label fx:id="fechaIng" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" />
                   <Label text="Sueldo:  " GridPane.rowIndex="9">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="sueldo" textFill="#64748b" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label fx:id="sueldo" maxWidth="Infinity" textFill="#64748b" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" />
                   <Button fx:id="datosEdit" mnemonicParsing="false" onAction="#editarDatos" text="Editar datos" GridPane.rowIndex="10" />
                </children>
             </GridPane>
          </center>
          <bottom>
-            <GridPane fx:id="editablesDatos" BorderPane.alignment="CENTER">
+            <GridPane fx:id="editablesDatos" managed="false" visible="false" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="293.60003662109375" minWidth="10.0" prefWidth="140.800048828125" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="461.5999755859375" minWidth="10.0" prefWidth="459.199951171875" />
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="Infinity" minWidth="150.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="250.0" prefWidth="459.199951171875" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -151,13 +154,14 @@
                   <Label text="Telefono:  " />
                   <Label text="Correo electronico:  " GridPane.rowIndex="1" />
                   <Label text="Dirección:  " GridPane.rowIndex="2" />
-                  <TextField fx:id="textTlf" GridPane.columnIndex="1" />
-                  <TextField fx:id="textMail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="textDir" prefHeight="26.0" prefWidth="433.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="textTlf" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  <TextField fx:id="textMail" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                  <TextField fx:id="textDir" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </bottom>
       </BorderPane>
+         </content>
+      </ScrollPane>
    </children>
 </VBox>
