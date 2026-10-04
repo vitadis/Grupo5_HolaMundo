@@ -19,7 +19,9 @@ import javafx.stage.Stage;
 import model.Empleado;
 
 /**
- * FXML Controller class
+ * Controlador de la vista del trabajador.
+ * Gestiona la visualización y edición de los datos personales del empleado,
+ * así como la navegación de cierre de sesión.
  *
  * @author Hodei.Torres
  */
@@ -77,13 +79,23 @@ public class TrabajadorController implements Initializable {
     private Button btnCerrarSesion;
 
     /**
-     * Initializes the controller class.
+     * Inicializa el controlador.
+     * En la implementación actual no requiere carga adicional al abrirse la vista.
+     *
+     * @param url URL del recurso FXML asociado
+     * @param rb Recursos de internacionalización asociados
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
+    /**
+     * Carga la información del trabajador en la vista y prepara los campos
+     * no editables con los datos del empleado.
+     *
+     * @param t trabajador cuyos datos se deben mostrar en la interfaz
+     */
     public void setTrabajador(model.Trabajador t){
         this.empleado = t;
         
@@ -105,6 +117,10 @@ public class TrabajadorController implements Initializable {
         editablesDatos.setVisible(false);
     }
     
+    /**
+     * Activa los campos editables para modificar los datos del trabajador.
+     * Se rellenan con los valores actuales para que el usuario pueda editarlos.
+     */
     @FXML
     private void editarDatos(){
         editablesDatos.setManaged(true);
@@ -114,7 +130,11 @@ public class TrabajadorController implements Initializable {
         textTlf.setText(tlf.getText());
     }
     
-    
+    /**
+     * Guarda los datos modificados del trabajador validando que la dirección,
+     * el correo y el teléfono no estén vacíos y cumplan los requisitos de la entidad.
+     * Si la validación falla, se muestra un mensaje de error al usuario.
+     */
     @FXML
     public void guardar() {
         String direccion = textDir.getText().trim();
@@ -153,15 +173,19 @@ public class TrabajadorController implements Initializable {
         }
     }
         
-        @FXML
-        private void cerrarSesion() {
-            try {
-                Stage ventanaActual = (Stage) btnCerrarSesion.getScene().getWindow();
-                ventanaActual.close();
-                InstanciarEscena.abrirNuevaVentana("/view/PantallaInicioView.fxml", "Iniciar sesión");
-            } catch (IOException ex) {
-                System.out.println("Error al volver al login: " + ex.getMessage());
-            }
+    /**
+     * Cierra la sesión del trabajador y regresa a la pantalla de inicio.
+     * La ventana actual se cierra y se abre la vista de inicio de sesión.
+     */
+    @FXML
+    private void cerrarSesion() {
+        try {
+            Stage ventanaActual = (Stage) btnCerrarSesion.getScene().getWindow();
+            ventanaActual.close();
+            InstanciarEscena.abrirNuevaVentana("/view/PantallaInicioView.fxml", "Iniciar sesión");
+        } catch (IOException ex) {
+            System.out.println("Error al volver al login: " + ex.getMessage());
         }
+    }
   
 }
