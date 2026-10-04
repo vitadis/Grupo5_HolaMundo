@@ -19,6 +19,13 @@ import model.Empleado;
 import model.Gerente;
 import model.Trabajador;
 
+/**
+ * Controlador para la vista del panel de Gerente en JavaFX. Se encarga de
+ * gestionar la interfaz de usuario específica para los gerentes, mostrando su
+ * información personal y listando los empleados que pertenecen a su mismo
+ * departamento. Permite visualizar el perfil de los trabajadores y gestionar el
+ * cierre de sesión.
+ */
 public class GerenteViewController implements Initializable {
 
     @FXML
@@ -33,16 +40,26 @@ public class GerenteViewController implements Initializable {
     private VBox VBoxEmpleados;
 
     private Gerente gerenteLogueado;
-    private Runnable onCerrarSesion;
 
+    /**
+     * Método llamado automáticamente por JavaFX tras cargar el archivo FXML.
+     *
+     * @param url La ubicación utilizada para resolver las rutas relativas del
+     * objeto raíz, o null si no se conoce.
+     * @param rb Los recursos utilizados para localizar el objeto raíz, o null
+     * si no se localizó.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void setOnCerrarSesion(Runnable accion) {
-        this.onCerrarSesion = accion;
-    }
-
+    /**
+     * Configura los datos del gerente que ha iniciado sesión, actualiza las
+     * etiquetas de la cabecera con su nombre y departamento, y desencadena la
+     * carga de la lista de empleados.
+     *
+     * @param gerente El objeto Gerente que ha iniciado sesión.
+     */
     public void setGerente(Gerente gerente) {
         this.gerenteLogueado = gerente;
 
@@ -52,6 +69,12 @@ public class GerenteViewController implements Initializable {
         cargarListaEmpleados();
     }
 
+    /**
+     * Limpia la vista actual y carga la lista de empleados obtenidos desde el
+     * map que esta en el paquete DAO. Filtra los empleados para mostrar
+     * únicamente aquellos que pertenecen al mismo departamento que el gerente
+     * logueado.
+     */
     private void cargarListaEmpleados() {
         VBoxEmpleados.getChildren().clear();
         Map<String, Empleado> mapEmpleados = EmpleadoDAO.obtenerTodos();
@@ -64,6 +87,14 @@ public class GerenteViewController implements Initializable {
         }
     }
 
+    /**
+     * Crea un contenedor visual (HBox) con la información resumida de un
+     * empleado y un botón para acceder a su perfil detallado.
+     *
+     * @param emp El objeto Empleado del cual se mostrarán los datos.
+     * @return Un objeto HBox configurado con las etiquetas de texto y el botón
+     * de acción correspondiente.
+     */
     private HBox crearFilaEmpleado(Empleado emp) {
         HBox fila = new HBox(15);
         fila.setAlignment(Pos.CENTER_LEFT);
@@ -102,10 +133,18 @@ public class GerenteViewController implements Initializable {
         return fila;
     }
 
+    /**
+     * Manejador de eventos vinculado al botón de cerrar sesión en el FXML. 
+     * Si se pulsa el boton vuelves a la ventana de inicio de sesion
+     */
     @FXML
     public void cerrarSesion() {
-        if (onCerrarSesion != null) {
-            onCerrarSesion.run();
+        try {
+            Stage ventanaActual = (Stage) btnCerrarSesion.getScene().getWindow();
+            ventanaActual.close();
+            InstanciarEscena.abrirNuevaVentana("/view/PantallaInicioView.fxml", "Iniciar sesión");
+        } catch (IOException ex) {
+            System.out.println("Error al volver al login: " + ex.getMessage());
         }
     }
 }

@@ -5,16 +5,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dao.EmpleadoDAO;
+import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.*;
 
 /**
@@ -52,6 +58,12 @@ public class JefeController {
      */
     private String tipoFiltro = "Todos";
 
+    /**
+     * Objeto para guardar al jefe, para visualizarlo posteriormente su
+     * información con un dialog.
+     */
+    private VisualizacionEmpleados jefe;
+
     // ======================== COMPONENTS FXML ================================
     /**
      * Tabla donde se muestran los empleados.
@@ -60,10 +72,11 @@ public class JefeController {
     private TableView<VisualizacionEmpleados> tablaComponent;
 
     /**
-     * Campo de texto donde se escribe el DNI (o una parte) para filtrar.
+     * Campo donde escribes, y te filtra segun el contenido de los getters dni,
+     * correo, departamento
      */
     @FXML
-    private TextField tfDni;
+    private TextField tfFiltros;
 
     // =========================================================================
     // ========================== METHODS FXML =================================
@@ -80,13 +93,29 @@ public class JefeController {
     }
 
     /**
-     * Abrirá una ventana con el perfil del empleado para poder modificarlo.
-     * Todavía está pendiente de hacer.
+     * Abre un diálogo modal con los datos del perfil del jefe.
+     *
+     * @see DialogPerfilController#setTrabajador(VisualizacionEmpleados)
+     * @see InstanciarEscena#mostrarError(String)
      */
     @FXML
     public void verPerfil() {
-        System.out.println("Abrir dialog, del perfil, para poder modificarlo");
-        // dni, nombre, apellido1, apellido2, dirección, mail, teléfono, fecha nacimiento, departamento, fecha ingreso, tipo de trabajador
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/DialogPerfilComponent.fxml"));
+            Parent root = loader.load();
+
+            DialogPerfilController controller = loader.getController();
+            controller.setTrabajador(jefe);
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Perfil del Jefe");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setResizable(false);
+            dialog.setScene(new Scene(root));
+            dialog.showAndWait();
+        } catch (IOException ex) {
+            InstanciarEscena.mostrarError("No se pudo abrir el perfil: " + ex.getMessage());
+        }
     }
 
     /**
@@ -97,7 +126,7 @@ public class JefeController {
      * @see #aplicarFiltros()
      */
     @FXML
-    public void filtradoDni() {
+    public void filtrado() {
         aplicarFiltros();
     }
 
@@ -116,21 +145,45 @@ public class JefeController {
         aplicarFiltros();
     }
 
+    /**
+     * Cierra la sesión actual y regresa a la pantalla de inicio de sesión.
+     *
+     * @param event evento de acción generado al presionar el botón de cerrar
+     * sesión.
+     * @see InstanciarEscena#cambiarVista(Stage, String, String)
+     * @see InstanciarEscena#mostrarError(String)
+     */
+    @FXML
+    public void cerrarSesion(ActionEvent event) {
+        try {
+            Button btnCS = (Button) event.getSource();
+            Stage stage = (Stage) btnCS.getScene().getWindow();
+            InstanciarEscena.cambiarVista(stage, "/view/PantallaInicioView.fxml", "Inicio Sesión");
+        } catch (IOException ex) {
+            InstanciarEscena.mostrarError("No se cerrar sesión: " + ex.getMessage());
+        }
+    }
+
     // =========================================================================
     // ========================== FILTER LOGIC =================================
     // =========================================================================
     /**
-     * Aplica los filtros a la tabla (el de DNI y el de tipo a la vez).
+     * Aplica los filtros a la tabla (el de texto y el de tipo a la vez).
      *
-     * Si la lista todavía no existe, no hace nada. Si existe, lee el DNI
-     * escrito (sin espacios) y cambia el predicado de la lista. El predicado es
-     * una condición que se revisa para cada empleado: si da true, el empleado
-     * se muestra; si da false, se oculta.
+     * Si la lista todavía no existe, no hace nada. Si existe, lee el texto
+     * escrito en el campo de búsqueda (sin espacios y en minúsculas) y cambia
+     * el predicado de la lista. El predicado es una condición que se revisa
+     * para cada empleado: si da true, el empleado se muestra; si da false, se
+     * oculta.
      *
-     * Un empleado se muestra solo si cumple las dos condiciones: - coincideDni:
-     * el campo está vacío, o el DNI del empleado contiene lo que se escribió. -
-     * coincideTipo: el botón elegido es "Todos", o el tipo del empleado es
-     * igual al del botón elegido.
+     * Un empleado se muestra solo si cumple las dos condiciones: -
+     * coincideTexto: el campo está vacío, o el texto escrito aparece en el DNI,
+     * en el email o en el departamento del empleado (basta con que coincida uno
+     * de los tres). - coincideTipo: el botón elegido es "Todos", o el tipo del
+     * empleado es igual al del botón elegido.
+     *
+     * La búsqueda no distingue entre mayúsculas y minúsculas, y si algún dato
+     * del empleado es null simplemente no coincide.
      *
      * @see #filtradoDni()
      * @see #filtrarPorTipo(ActionEvent)
@@ -140,17 +193,23 @@ public class JefeController {
             return;
         }
 
-        String textoDni = tfDni.getText() == null ? "" : tfDni.getText().trim();
+        String textoFiltro = tfFiltros.getText() == null ? "" : tfFiltros.getText().trim();
 
         listaFiltrada.setPredicate(emp -> {
-            boolean coincideDni = textoDni.isEmpty()
-                    || (emp.getDni() != null && emp.getDni().toLowerCase().contains(textoDni));
+            boolean coincideDni = emp.getDni() != null
+                    && emp.getDni().toLowerCase().contains(textoFiltro);
+
+            boolean coincideEmail = emp.getEmail() != null
+                    && emp.getEmail().toLowerCase().contains(textoFiltro);
+
+            boolean coincideDpto = emp.getDepartamento() != null
+                    && emp.getDepartamento().toLowerCase().contains(textoFiltro);
 
             boolean coincideTipo = tipoFiltro.equalsIgnoreCase("Todos")
                     || (emp.getTipoTrabajador() != null
                     && emp.getTipoTrabajador().equalsIgnoreCase(tipoFiltro));
 
-            return coincideDni && coincideTipo;
+            return (textoFiltro.isEmpty() || coincideDni || coincideEmail || coincideDpto) && coincideTipo;
         });
     }
 
@@ -193,7 +252,7 @@ public class JefeController {
         tablaComponent.getColumns().add(colTipoTrabajador);
 
         colDni.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getDni()));
-        colNombre.setCellValueFactory(cell-> new SimpleStringProperty(cell.getValue().getNombre()));
+        colNombre.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNombre()));
         colApellido1.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getApellido1()));
         colApellido2.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getApellido2()));
         colDireccion.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getDireccion()));
@@ -227,8 +286,13 @@ public class JefeController {
         List<VisualizacionEmpleados> listVisEmp = listEmp.stream()
                 .map(empleado -> new VisualizacionEmpleados(empleado))
                 .collect(Collectors.toList());
+        jefe = listVisEmp.stream()
+                .filter(e -> e.getTipoTrabajador().equals("Jefe"))
+                .findFirst()
+                .orElse(null);
+
         listVisEmp.removeIf(e -> e.getTipoTrabajador().equals("Jefe"));
-        
+
         ObservableList<VisualizacionEmpleados> listaEmpleados = FXCollections.observableArrayList();
         listaEmpleados.addAll(listVisEmp);
         return listaEmpleados;

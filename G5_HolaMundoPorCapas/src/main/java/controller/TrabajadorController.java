@@ -4,6 +4,7 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import model.Empleado;
 
 /**
@@ -42,19 +44,19 @@ public class TrabajadorController implements Initializable {
     @FXML
     private Label dni;
     @FXML
+    private Label sueldo;
+    @FXML
+    private Label fechaNac;
+    @FXML
+    private Label fechaIng;
+    
+    //DATOS QUE SE PUEDEN MODIFICAR
+    @FXML
     private Label mail;
     @FXML
     private Label tlf;   
     @FXML
     private Label dir;
-    @FXML
-    private Label sueldo;
-    
-    //DATOS QUE SE PUEDEN MODIFICAR
-    @FXML
-    private Label fechaNac;
-    @FXML
-    private Label fechaIng;
     
     
     //GUARDAD
@@ -71,6 +73,8 @@ public class TrabajadorController implements Initializable {
     private TextField textMail;
     @FXML
     private TextField textDir;
+    @FXML
+    private Button btnCerrarSesion;
 
     /**
      * Initializes the controller class.
@@ -97,12 +101,13 @@ public class TrabajadorController implements Initializable {
         fechaIng.setText(t.getFechaIngreso().format(FORMATO));
         sueldo.setText(String.valueOf(t.getSueldo())+ "€");
         
-        //btnGuardar.setVisible(false);   
+        editablesDatos.setManaged(false);
         editablesDatos.setVisible(false);
     }
     
     @FXML
     private void editarDatos(){
+        editablesDatos.setManaged(true);
         editablesDatos.setVisible(true);
         textDir.setText(dir.getText());
         textMail.setText(mail.getText());
@@ -141,23 +146,21 @@ public class TrabajadorController implements Initializable {
             tlf.setText(telefono);
             
             editablesDatos.setVisible(false);
+            editablesDatos.setManaged(false);
             
         } catch(IllegalArgumentException ex){
              new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
         }
     }
-    
-        private Runnable onCerrarSesion;
-
-        // Lo llama el login para decidir qué hacer al cerrar sesión.
-        public void setOnCerrarSesion(Runnable accion) {
-            this.onCerrarSesion = accion;
-        }
         
         @FXML
         private void cerrarSesion() {
-            if (onCerrarSesion != null) {
-                onCerrarSesion.run();
+            try {
+                Stage ventanaActual = (Stage) btnCerrarSesion.getScene().getWindow();
+                ventanaActual.close();
+                InstanciarEscena.abrirNuevaVentana("/view/PantallaInicioView.fxml", "Iniciar sesión");
+            } catch (IOException ex) {
+                System.out.println("Error al volver al login: " + ex.getMessage());
             }
         }
   
