@@ -1,0 +1,212 @@
+/* =========================================================================
+   trabajador.css
+   Estilos de TrabajadorView.fxml (mismo diseño que la vista del jefe).
+   Este FXML no usa styleClass: todo se aplica por tipo de nodo y por fx:id,
+   así que lo único que hay que tocar en el FXML es enlazar esta hoja:
+       <VBox ... stylesheets="@../styles/trabajador.css">
+   ========================================================================= */
+
+/* ============================== VARIABLES ===============================
+   Colores definidos una sola vez. Para cambiar la paleta, edita solo aquí.
+   Se declaran en .root, que es el VBox raíz de TrabajadorView. */
+.root {
+    /* Fondo y superficies */
+    -color-fondo-1: #f9faff;
+    -color-fondo-2: #eff1ff;
+    -color-superficie: white;
+    -color-borde: #e6e9f5;
+
+    /* Texto */
+    -color-texto: #2b2f45;
+    -color-texto-suave: #5b6180;
+    -color-placeholder: #9aa0bd;
+    -color-titulo: #1e2a78;
+
+    /* Acción primaria (azul): Editar datos, Guardar */
+    -color-primario: #3b52d4;
+    -color-primario-hover: #2f44bd;
+    -color-primario-pressed: #2639a3;
+
+    /* Peligro (rojo suave): Cerrar Sesion */
+    -color-peligro: #c0392b;
+    -color-peligro-fondo: #fde4e4;
+    -color-peligro-hover: #fbd0d0;
+    -color-peligro-pressed: #f8bcbc;
+    -color-peligro-borde: #f6c9c9;
+
+    /* Sombras */
+    -sombra-suave: rgba(30, 42, 120, 0.07);
+    -sombra-media: rgba(30, 42, 120, 0.10);
+    -sombra-primario: rgba(59, 82, 212, 0.30);
+    -sombra-foco: rgba(59, 82, 212, 0.25);
+
+    /* Tipografía base */
+    -fx-font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+
+    /* Se quita el anillo de foco por defecto de JavaFX */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+
+    /* FONDO: degradado del VBox raíz */
+    -fx-background-color: linear-gradient(to bottom, -color-fondo-1, -color-fondo-2);
+}
+
+/* ================================ TEXTO ================================= */
+.label {
+    -fx-text-fill: -color-texto;
+}
+
+/* Título "DATOS DEL TRABAJADOR": único Label hijo directo del VBox raíz */
+.root > .label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-font-style: normal;
+    -fx-text-fill: -color-titulo;
+}
+
+/* ============================ TARJETA (ScrollPane) ====================== */
+/* El ScrollPane se ve como una tarjeta blanca con esquinas redondeadas */
+.scroll-pane {
+    -fx-background-color: -color-superficie;
+    -fx-background-radius: 16;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: -color-borde;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, -sombra-media, 18, 0, 0, 4);
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Espaciado interior: BorderPane que contiene cabecera, datos y edición */
+.scroll-pane .border-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 24;
+}
+
+/* ================== ETIQUETAS FIJAS ("Nombre:", "DNI:"...) ============== */
+/* Todas las Label sin fx:id dentro de la tarjeta, incluidas las de la zona
+   editable (Telefono, Correo electronico, Dirección) */
+.scroll-pane .label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-font-style: normal;
+    -fx-text-fill: -color-texto-suave;
+}
+
+/* ================== CABECERA: lblDniUsuario y depart ==================== */
+#lblDniUsuario,
+#depart {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-font-style: normal;
+    -fx-text-fill: -color-primario;
+}
+
+/* ================== VALORES DE SOLO LECTURA (por fx:id) ================= */
+#nom, #ape1, #ape2, #dni, #mail, #tlf, #dir,
+#fechaNac, #fechaIng, #sueldo {
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-font-style: normal;
+    -fx-text-fill: -color-texto;
+}
+
+/* ============ CAMPOS EDITABLES: textTlf, textMail y textDir ============= */
+.text-field {
+    -fx-background-color: -color-superficie;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-border-color: -color-borde;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 8 14 8 15;
+    -fx-text-fill: -color-texto;
+    -fx-prompt-text-fill: -color-placeholder;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, -sombra-suave, 8, 0, 0, 2);
+}
+
+.text-field:focused {
+    -fx-border-color: -color-primario;
+    -fx-effect: dropshadow(gaussian, -sombra-foco, 10, 0, 0, 0);
+}
+
+/* ================================ BOTONES =============================== */
+/* Base: rojo suave. Aplica a "Cerrar Sesion", el único botón sin fx:id.
+   Si quieres no depender de eso, ponle fx:id="btnCerrarSesion" y cambia
+   este selector por #btnCerrarSesion. */
+.button {
+    -fx-background-color: -color-peligro-fondo;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-border-color: -color-peligro-borde;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-text-fill: -color-peligro;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: -color-peligro-hover;
+}
+
+.button:pressed {
+    -fx-background-color: -color-peligro-pressed;
+}
+
+/* Botones principales azules: datosEdit ("Editar datos") y btnGuardar ("Guardar") */
+#datosEdit,
+#btnGuardar {
+    -fx-background-color: -color-primario;
+    -fx-border-width: 0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, -sombra-primario, 8, 0, 0, 3);
+}
+
+#datosEdit:hover,
+#btnGuardar:hover {
+    -fx-background-color: -color-primario-hover;
+}
+
+#datosEdit:pressed,
+#btnGuardar:pressed {
+    -fx-background-color: -color-primario-pressed;
+}
+
+/* ============================= SCROLLBARS =============================== */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #cfd5f0;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #b7c0e8;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-padding: 0;
+    -fx-shape: " ";
+}
